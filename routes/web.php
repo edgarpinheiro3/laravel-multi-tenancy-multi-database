@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/404-tenant', function () {
-    view('errors.404-tenant');
+    return view('errors.404-tenant');
 })->name('404.tenant');
 
 
