@@ -22,4 +22,9 @@ class ManagerTenant
 
     }
 
+    public function domainIsMain()
+    {
+        return request()->getHost() == config('tenant.domain_mai');
+    }
+
 }
