@@ -15,8 +15,8 @@ class TenantMigrations extends Command
      * @var string
      */
 
-    //--refresh é um parâmetro OPCIONAL {--}
-    protected $signature = 'tenants:migrations {--refresh}';
+    //--refresh é um parâmetro OPCIONAL {--} a interrogação também é opcional ?
+    protected $signature = 'tenants:migrations {id?} {--refresh}';
 
     /**
      * The console command description.
@@ -46,26 +46,45 @@ class TenantMigrations extends Command
      */
     public function handle()
     {
-        $command = $this->option('refresh') ? 'migrate:refresh' : 'migrate' ;
+        
+        if ($id = $this->argument('id')) {
+
+            $company = Company::find($id);
+
+                if($company)
+                    $this->execCommand($company);
+
+            return;
+            
+        }
         
         $companies = Company::all();
 
         foreach ($companies as $company) {
 
-            $this->tenant->setConnection($company);
-
-            $this->info("Connecting Company {$company->name}");
-
-            Artisan::call($command, [
-                '--force' => true,
-                '--path' => '/database/migrations/tenant',
-            ]);
-
-            $this->info("End Connecting Company {$company->name}");
-
-            $this->info("------------------------------------------");
+            $this->execCommand($company);
 
         }
 
     }
+
+    public function execCommand(Company $company)
+    {
+        $command = $this->option('refresh') ? 'migrate:refresh' : 'migrate';
+
+        $this->tenant->setConnection($company);
+
+        $this->info("Connecting Company {$company->name}");
+
+        Artisan::call($command, [
+            '--force' => true,
+            '--path' => '/database/migrations/tenant',
+        ]);
+
+        $this->info("End Connecting Company {$company->name}");
+
+        $this->info("------------------------------------------");
+
+    }
+
 }
