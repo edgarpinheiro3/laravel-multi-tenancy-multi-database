@@ -6,6 +6,7 @@ use App\Models\Company;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Events\Tenant\CompanyCreated;
 
 class CompanyController extends Controller
 {
@@ -27,6 +28,8 @@ class CompanyController extends Controller
             'db_username' => 'root', 
             'db_password' => 'root'
         ]);
+
+        event(new CompanyCreated($company));
 
         dd($company);
     }

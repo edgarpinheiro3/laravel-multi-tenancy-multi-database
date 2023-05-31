@@ -18,7 +18,12 @@ class TenantMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
+
         $manager = app(ManagerTenant::class);
+
+        if($manager->domainIsMain())
+        
+            return $next($request);
         
         $company = $this->getCompany($request->getHost());
         
