@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Tenant;
 
-use App\Events\Tenant\DatabaseCreated;
 use App\Models\Company;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -24,17 +23,13 @@ class CompanyController extends Controller
         $company = $this->company->create([
             'name' => 'Empresa x '.Str::random(5), 
             'domain' => Str::random(5).'minhaempresa.com', 
-            'db_database' => 'laravel-multi-teste', 
+            'db_database' => 'laravel-multi-'.Str::random(5), 
             'db_hostname' => '172.17.0.3', 
             'db_username' => 'root', 
             'db_password' => 'root'
         ]);
 
-        if (false)
-            event(new CompanyCreated($company));
-        else
-            //se true rodar apenas a migration suponhe que o banco já foi criado em outro servidor
-            event(new DatabaseCreated($company));
+        event(new CompanyCreated($company));
 
         dd($company);
     }
