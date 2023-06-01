@@ -9,7 +9,7 @@ class DatabaseManager
 
     public function createDatabase(Company $company)
     {
-        DB::statement("CREATE SCHEMA `{$company->db_database}` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
+        return DB::statement("CREATE SCHEMA `{$company->db_database}` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci");
     }
 
 }
