@@ -19,7 +19,7 @@ class CheckDomainMain
 
         if( request()->getHost() != config('tenant.domain_main') ) {
 
-            abort(410);
+            abort(410, 'Acesso não permitido!');
 
         }
 
