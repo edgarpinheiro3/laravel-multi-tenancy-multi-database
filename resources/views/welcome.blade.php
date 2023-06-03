@@ -30,7 +30,12 @@
                         <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
 
                         @if (Route::has('register'))
+                            @tenant
                             <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
+                            @endtenant
+                            @tenantmain
+                            <p>Olá, você é o domínio principal (localhost) o Register não vai aparecer</p>
+                            @endtenant
                         @endif
                     @endauth
                 </div>

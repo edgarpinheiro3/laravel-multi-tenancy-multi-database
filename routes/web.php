@@ -26,4 +26,25 @@ Route::get('/', function () {
 
 Auth::routes();
 
+// Criação de Rotas Manualmente
+/*
+Route::get('login', [Auth\LoginController::class, 'showLoginForm'])->name('login');
+Route::post('login', [Auth\LoginController::class, 'login']);
+Route::post('logout', [Auth\LoginController::class, 'logout'])->name('logout');
+Route::get('sair', [Site\SiteController::class, 'logout'])->name('logout');
+
+Route::post('password/email', [Auth\ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.link.email');
+Route::get('password/reset', [Auth\ResetPasswordController::class, 'showLinkRequestForm'])->name('password.reset');
+Route::post('password/reset', [Auth\ResetPasswordController::class, 'reset'])->name('password.reset.go');
+Route::get('password/reset/{token}', [Auth\ResetPasswordController::class, 'showResetForm'])->name('password.reset.token');
+
+Route::group([
+    'middleware' => ['not.domain.main'], 
+], function ($router) {
+    $router->get('register', [Auth\RegisterController::class, 'showRegistrationForm'])->name('register.show');
+    $router->post('register', [Auth\RegisterController::class, 'register'])->name('register.show');
+
+});
+*/
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
