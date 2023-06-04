@@ -37,7 +37,8 @@ class TenantMiddleware
 
             //chama a função que criar a sessão
             $this->setSessionCompany($company->only([
-                'name'
+                'name',
+                'uuid'
             ]));
 
         }
