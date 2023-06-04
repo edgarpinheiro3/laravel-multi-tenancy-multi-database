@@ -35,6 +35,11 @@ class TenantMiddleware
 
             $manager->setConnection($company);
 
+            //chama a função que criar a sessão
+            $this->setSessionCompany($company->only([
+                'name'
+            ]));
+
         }
 
         return $next($request);
@@ -43,6 +48,12 @@ class TenantMiddleware
     public function getCompany($host)
     {
         return Company::where('domain', $host)->first();
+    }
+
+    public function setSessionCompany($company) {
+
+        session()->put('company', $company);
+
     }
 
 }
